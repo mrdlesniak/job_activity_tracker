@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unemp</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    
+    <style type="text/css">
+        .btn{
+            width: 100%;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- navbar section -->
+    <nav>
+        <div class="nav-wrapper teal lighten-2">
+            <span class="brand-logo">Job Activity Tracker</span>
+        </div>
+    </nav>
+
+    <div class="content" id="app">
+        <!-- section to add activity -->   
+        <button class="waves-effect waves-light red lighten-2 btn" v-on:click="showHideEvent">[[show_select]]</button>
+            <!-- select form type -->
+            <div class="input-field" v-show="show_select != 'Create Event'">
+                <select> 
+                    <option value="" disabled selected>Choose Form Type</option>
+                    <option value="0">Activity</option>
+                    <option value="1">Application</option>
+                </select>
+            </div>
+
+        <!-- collapsible dates -->
+        <ul class="collapsible collapsible-accordion">
+            {% for date in all_dates %}
+            <li>
+                <div class="collapsible-header center-align">{{date}}</div>
+                {% for application in date.applications.all %}
+                    <div class="collapsible-body">
+
+                        {{application}}
+                    ></div>
+                {% endfor %}
+            </li>
+            {% endfor %}
+
+        </ul>
+        
+
+    </div>
+
+    <!-- JS Section -->
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('.collapsible');
+                var instances = M.Collapsible.init(elems);
+            });
+
+        document.addEventListener('DOMContentLoaded', function () {
+                var elems = document.querySelectorAll('select');
+                var instances = M.FormSelect.init(elems);
+            });
+
+        let app = new Vue({
+                el: '#app',
+                delimiters: ['[[', ']]'],
+                data: {
+                    show_select: "Create Event",
+                    application_or_activity: "", 
+                },
+                methods: {
+                    showHideEvent: function () {
+                        if (this.show_select === "Create Event") {
+                            this.show_select = "Hide Event Creator"
+                        } else {
+                            this.show_select = "Create Event"
+                        }
+                        console.log(this.show_select == 'Create Event')
+                    }
+                }
+            })
+    </script>
+</body>
+</html>
