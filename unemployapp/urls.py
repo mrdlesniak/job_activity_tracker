@@ -3,5 +3,7 @@ from . import views
 
 app_name = 'unemployapp'
 urlpatterns = [
-  path('', views.index, name='index')
+  path('', views.index, name='index'),
+  path('new_app', views.new_app, name='new_app'),
+  path('new_act', views.new_act, name='new_act'),
 ]
