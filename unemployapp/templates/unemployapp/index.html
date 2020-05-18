@@ -69,7 +69,7 @@
                 <div class="collapsible-header center-align">{{date}}</div>
                 {% for application in date.applications.all %}
                     <div class="collapsible-body">
-                        <b>Application:</b>  {{application}} | {{application.contact_method}}
+                        <b>Application:</b>  {{application}} | {{application.location}} | {{application.contact_method}} | {{application.work_type}}
                     </div>
                 {% endfor %}
                 {% for activity in date.activities.all %}
