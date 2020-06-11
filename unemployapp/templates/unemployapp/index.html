@@ -64,20 +64,23 @@
 
         <!-- collapsible dates -->
         <ul class="collapsible collapsible-accordion">
-            {% for date in all_dates %}
-            <li>
-                <div class="collapsible-header center-align">{{date}}</div>
-                {% for application in date.applications.all %}
-                    <div class="collapsible-body">
-                        <b>Application:</b>  {{application}} | {{application.location}} | {{application.contact_method}} | {{application.work_type}}
-                    </div>
-                {% endfor %}
-                {% for activity in date.activities.all %}
-                <div class="collapsible-body">
-                    <b>Activity: </b> {{activity}}
-                    </div>
-                {% endfor %}
-            </li>
+            {% for week in all_weeks %}
+
+                <li>
+                    <div class="collapsible-header center-align">{{week.week_beginning}} &mdash; {{week.week_end}}</div>
+                        {% for date in week.dates.all %}
+                            {% for application in date.applications.all %}
+                                <div class="collapsible-body">
+                                    <b>{{date}} : Application</b>  {{application}} | {{application.location}} | {{application.contact_method}} | {{application.work_type}}
+                                </div>
+                            {% endfor %}
+                            {% for activity in date.activities.all %}
+                            <div class="collapsible-body">
+                                <b>{{date}} : Activity</b> {{activity}}
+                            </div>
+                            {% endfor %}
+                        {% endfor %}
+                </li>
         
             {% endfor %}
 

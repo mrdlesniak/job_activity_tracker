@@ -2,7 +2,33 @@ from django.db import models
 import datetime
 
 # Create your models here.
+class Week(models.Model):
+    week = models.CharField(max_length=200)
+    year = models.CharField(max_length=200)
+
+    #gets the first day of the week (usually Monday)
+    def week_beginning(self):
+        start_and_end_of_week = self.get_start_and_end_date_from_calendar_week(self.year, self.week)
+        week_beginning = start_and_end_of_week[0].strftime('%m/%d')
+        return week_beginning
+
+    #gets the last day of the week (usually Sunday)
+    def week_end(self):
+        start_and_end_of_week = self.get_start_and_end_date_from_calendar_week(self.year, self.week)
+        week_end = start_and_end_of_week[1].strftime('%m/%d')
+        return week_end
+
+    #this function allows you to give a year and a week num and return the monday and sunday of that week
+    def get_start_and_end_date_from_calendar_week(self, year, calendar_week):
+        monday = datetime.datetime.strptime(f'{year}-{calendar_week}-1', "%Y-%W-%w").date()
+        return monday, monday + datetime.timedelta(days=6.9)
+
+    def __str__(self):
+        return f"{self.week_beginning()} - {self.week_end()}"
+
+
 class Date(models.Model):
+    week = models.ForeignKey(Week, on_delete=models.PROTECT, related_name="dates")
     date = models.DateField(default=datetime.date.today)
 
     def __str__(self):
