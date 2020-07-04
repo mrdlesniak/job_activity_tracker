@@ -20,7 +20,7 @@ def index(request):
         "all_weeks": all_weeks,
     }
 
-    return render(request, 'unemployapp/index.html', context)
+    return render(request, 'jat/index.html', context)
 
 #takes new application from form in html and saves it
 #redirects back to homescreen
@@ -48,7 +48,7 @@ def new_app(request):
     application = Application(date=new_app_date, company_name=new_app_co_name, location=new_app_location, contact_method=new_app_contact_method, work_type=new_app_work_type, results=new_app_results)
     application.save()
 
-    return HttpResponseRedirect(reverse('unemployapp:index'))
+    return HttpResponseRedirect(reverse('jat:index'))
 
 
 #takes new activity from form in html and saves it
@@ -74,7 +74,7 @@ def new_act(request):
     activity = Activity(date=new_act_date, activity=new_activity)
     activity.save()
     
-    return HttpResponseRedirect(reverse('unemployapp:index'))
+    return HttpResponseRedirect(reverse('jat:index'))
 
 #just checks if this date exists already
 def check_date(new_act_date):

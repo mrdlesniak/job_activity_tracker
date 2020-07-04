@@ -40,7 +40,7 @@
             </div>
                 <!-- activity form -->
                 <div id="activity_form" v-show="application_or_activity == 'activity'">
-                    <form action="{% url 'unemployapp:new_act' %}" method="post">
+                    <form action="{% url 'jat:new_act' %}" method="post">
                         {% csrf_token %}
                         <input type="date" name="new_act_date" id="" required>
                         <input type="text" name="new_activity" id="" placeholder="Activity Description" required>
@@ -50,7 +50,7 @@
 
                 <!-- application form -->
                 <div id="application_form" v-show="application_or_activity == 'application'">
-                    <form action="{% url 'unemployapp:new_app' %}" method="post">
+                    <form action="{% url 'jat:new_app' %}" method="post">
                         {% csrf_token %}
                         <input type="date" name="new_app_date" id="" required>
                         <input type="text" name="new_app_co_name" id="" placeholder="Company" required>
