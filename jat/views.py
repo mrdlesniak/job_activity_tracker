@@ -13,6 +13,9 @@ def index(request):
     all_activities = Activity.objects.all()
     all_weeks = Week.objects.order_by("-week")
 
+    for date in all_dates:
+        print(date.week.week_beginning())
+
     context = {
         "all_dates": all_dates,
         "all_applications": all_applications,
@@ -63,6 +66,7 @@ def new_act(request):
     if date_exists:
         new_act_date = Date.objects.get(date=new_act_date)
     else:
+        print(new_act_date)
         week = new_act_date.strftime("%V")
         week = save_new_week(week, new_act_date.year)
         new_date = Date(week=week, date=new_act_date)
@@ -101,9 +105,14 @@ def get_week_dict(all_dates):
 #checks if week already exists and saves a new one if not
 def save_new_week(week, year):
     all_week_objs = Week.objects.all()
-    if week not in all_week_objs:
+    all_weeks = []
+    for week_obj in all_week_objs:
+        all_weeks.append(week_obj.week)
+    if week not in all_weeks:
         print("yay, I'm here!")
         new_week = Week(week=week, year=year)
         new_week.save()
         return new_week
-    print("Oh dear god. What have I done??")
+    
+    week_obj = Week.objects.get(week=week)
+    return week_obj

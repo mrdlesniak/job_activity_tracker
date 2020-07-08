@@ -5,7 +5,7 @@ import sys
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'unemployment_organizer.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jat_proj.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
